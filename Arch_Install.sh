@@ -22,7 +22,7 @@ sudo reflector --country 'Canada, US' --latest 10 --age 5 --protocol https --sor
 
 # Install Packages
 
-paru -S --noconfirm arandr pacseek bitwarden cmatrix yay ffmpeg neovim floorp-bin gvfs-smb cifs-utils thunar-extended thunar-archive-plugin thunar-volman ffmpegthumbnailer nordic-theme zsh htop neohtop flatpak kate krita fastfetch evolution evolution-on evolution-spamassassin evolution-bogofilter evolution-data-server evolution-ews engrampa intel-media-driver intel-media-sdk font-manager fontconfig gtk-update-icon-cache vivaldi
+paru -S --noconfirm timeshift timeshift-autosnap snapmate arandr pacseek bitwarden cmatrix yay ffmpeg neovim floorp-bin gvfs-smb cifs-utils thunar-extended thunar-archive-plugin thunar-volman ffmpegthumbnailer nordic-theme zsh htop neohtop flatpak kate krita fastfetch evolution evolution-on evolution-spamassassin evolution-bogofilter evolution-data-server evolution-ews engrampa intel-media-driver intel-media-sdk font-manager fontconfig gtk-update-icon-cache vivaldi
 
 
 # Install Fonts
