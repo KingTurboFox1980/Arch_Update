@@ -9,11 +9,6 @@ date
 
 paru -P --stats
 
-#SYNCHRONIZING SYSTEM CLOCK
-echo -e "\e[30;48;5;13m***** SYNCHRONIZING SYSTEM CLOCK *****\e[0m"
-sudo timedatectl set-ntp true
-echo ""
-
 # Function to check if any package manager processes are running
 echo -e "\e[30;48;5;10m***** REMOVING PACMAN LOCK IF ANY *****\e[0m"
 check_pacman_processes() {
@@ -38,22 +33,6 @@ repair_pacman_lock() {
     fi
 }
 
-# Refresh mirror list
-echo -e "\e[30;48;5;10m***** REFRESHING MIRRORS *****\e[0m"
-sudo reflector --verbose -l 5 -n 5 -p http --sort rate --save /etc/pacman.d/mirrorlist
-echo ""
-
-# Refresh keys
-echo -e "\e[30;48;5;10m***** REFRESHING KEYS *****\e[0m"
-sudo pacman-key --init
-sudo pacman-key --populate archlinux
-echo ""
-
-# Update Keyring
-echo -e "\e[30;48;5;10m***** UPDATING ARCH LINUX KEYRING *****\e[0m"
-sudo pacman -Sy archlinux-keyring --noconfirm
-echo ""
-
 # Function to update the system
 update_system() {
     echo "Updating the system..."
@@ -64,14 +43,21 @@ update_system() {
 repair_pacman_lock
 update_system
 
-# CLEARING PACKAGE CACHE
-echo -e "\e[30;48;5;12m***** CLEARING PACKAGE CACHE *****\e[0m"
-sudo pacman -Sc
-echo ""
-
 # Remove orphan packages
+
 echo -e "\e[30;48;5;10m***** REMOVING UNUSED PACKAGES (ORPHANS) *****\e[0m"
 sudo pacman -Qqtd
+echo ""
+
+# Refresh mirror list
+echo -e "\e[30;48;5;10m***** REFRESHING MIRRORS *****\e[0m"
+sudo reflector --country 'Canada, US' --latest 15 --age 5 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+echo ""
+
+# Refresh keys
+echo -e "\e[30;48;5;10m***** REFRESHING KEYS *****\e[0m"
+sudo pacman-key --init
+sudo pacman-key --populate archlinux
 echo ""
 
 # Refresh Font cache
@@ -95,6 +81,11 @@ echo ""
 # Update Snaps
 echo -e "\e[30;48;5;10m***** UPDATING SNAP PACKAGES *****\e[0m"
 sudo snap refresh
+echo ""
+
+# Update Keyring
+echo -e "\e[30;48;5;10m***** UPDATING ARCH LINUX KEYRING *****\e[0m"
+sudo pacman -Sy archlinux-keyring --noconfirm
 echo ""
 
 # yay System Update
@@ -130,8 +121,8 @@ echo ""
 # echo ""
 
 # Clean the journal
-echo -e "\e[30;48;5;8m***** CLEANING JOURNAL LOGS *****\e[0m"
-sudo journalctl --vacuum-size=100M
+echo -e "\e[30;48;5;10m***** CLEANING JOURNAL *****\e[0m"
+sudo journalctl --vacuum-time=2weeks
 echo ""
 
 # Display failed systemd services including inactive
@@ -171,7 +162,7 @@ echo ""
 echo -e "\e[1;32mDone.\e[0m"
 
 # Trim
-echo -e "\e[30;48;5;10m***** OPTIMIZING nVME PERFORMANCE (DISK TRIM) *****\e[0m"
+echo -e "\e[30;48;5;10m***** TRIM nVME *****\e[0m"
 sudo fstrim -v /
 echo ""
 

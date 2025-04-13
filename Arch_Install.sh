@@ -4,7 +4,7 @@ set -e
 
 # Install prerequisite packages
 
-sudo pacman -Syu --needed base-devel git reflector
+sudo pacman -Syu --needed base-devel git reflector network-manager-applet
 
 # PARU
 git clone https://aur.archlinux.org/paru.git
@@ -18,7 +18,7 @@ rm -rf paru
 
 # Refresh mirror list
 
-sudo reflector --country 'Canada, US' --latest 10 --age 5 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+sudo reflector --country 'Canada, US' --latest 15 --age 5 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 
 # Install Packages
 
